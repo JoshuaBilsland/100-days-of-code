@@ -1,4 +1,5 @@
 import art
+import os
 
 # Welcome section
 print(art.logo)
@@ -21,6 +22,7 @@ def main():
 
             if get_another_bidder.lower() == "yes":
                 valid_input = True
+                os.system('cls' if os.name == 'nt' else 'clear')
             elif get_another_bidder.lower() == "no":
                 valid_input = True
                 get_bids = False
