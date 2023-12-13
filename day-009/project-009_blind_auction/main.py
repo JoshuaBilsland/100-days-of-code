@@ -29,11 +29,24 @@ def main():
             else:
                 print("ERROR: Please enter only 'yes' or 'no'")
 
+    work_out_winner(bids)
+
 
 def get_new_bid():
     name = input("What is your name?: ")
-    bid = input("What is your bid?: $")
+    bid = int(input("What is your bid?: $"))
     return [name, bid]
+
+
+def work_out_winner(dict):
+    highest_bidder = None
+    highest_bid = 0
+    for bid in dict:
+        if dict[bid] > highest_bid:
+            highest_bidder = bid
+            highest_bid = dict[bid]
+
+    print(f"The winner is {highest_bidder} with a bid of ${highest_bid}.")
 
 
 if __name__ == '__main__':
