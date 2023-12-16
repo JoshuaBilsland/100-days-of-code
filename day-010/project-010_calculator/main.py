@@ -1,3 +1,6 @@
+import art
+
+
 def add(n1, n2):
     return n1 + n2
 
@@ -23,6 +26,8 @@ operations = {
 
 
 def main():
+    print(art.logo)
+
     calculating = True
     num1 = int(input("What's the first number?: "))
     while calculating:
