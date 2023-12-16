@@ -35,11 +35,15 @@ def main():
         print(f"{num1} {operation_symbol} {num2} = {answer}")
 
         choice = input(f"Type 'y' to continue calculating with {answer}, or "
-                       f"type 'n' to start a new calculation: ")
+                       f"type 'n' to exit or "
+                       f"type 'c' to start a new calculation: ")
         if choice == "y":
             num1 = answer
+        elif choice == "n":
+            calculating = False
         else:
             calculating = False
+            main()
 
 
 if __name__ == "__main__":
