@@ -28,8 +28,17 @@ def main():
     computer_hand = []
     playing = True
     while playing:
-        print()
+        for i in range(2):
+            user_hand.append(draw_card())
+            computer_hand.append(draw_card())
 
+        print(f"Your cards: {user_hand}")
+
+        playing = False  # For testing
+
+
+def draw_card():
+    return random.choice(DECK)
 
 if __name__ == "__main__":
     print(art.logo)
