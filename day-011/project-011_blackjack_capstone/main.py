@@ -24,10 +24,10 @@ DECK = [11, 2, 3, 4, 5, 6, 7, 8, 9, 10, 10, 10, 10]
 
 
 def main():
-    user_hand = []
-    computer_hand = []
     playing = True
     while playing:
+        user_hand = []
+        computer_hand = []
         for i in range(2):
             user_hand.append(draw_card())
             computer_hand.append(draw_card())
@@ -54,7 +54,9 @@ def main():
         print(f"Your final hand: {user_hand}")
         print(f"Computer's final hand: {computer_hand}")
 
-        playing = False  # For testing
+        play_again = input("Do you want to play another game? Y/N: ")
+        if play_again.upper() != "Y":
+            playing = False
 
 
 def draw_card():
