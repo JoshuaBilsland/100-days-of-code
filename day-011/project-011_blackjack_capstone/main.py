@@ -33,12 +33,26 @@ def main():
             computer_hand.append(draw_card())
 
         print(f"Your cards: {user_hand}")
+        print(f"Computer's first card: {computer_hand[0]}")
 
-        user_hand = user_turn(user_hand)
-        if user_hand is None:
+        user_turn_result = user_turn(user_hand)
+
+        if user_turn_result is None:
             print("Computer wins!")
         else:
-            computer_hand = computer_turn()
+            user_hand = user_turn_result
+            computer_hand = computer_turn(computer_hand)
+            if get_score(computer_hand) > 21:
+                print("Computer has gone bust! You win!")
+            else:
+                if get_score(user_hand) > get_score(computer_hand):
+                    print("You win!")
+                elif get_score(user_hand) == get_score(computer_hand):
+                    print("Draw!")
+                elif get_score(user_hand) < get_score(computer_hand):
+                    print("Computer wins!")
+        print(f"Your final hand: {user_hand}")
+        print(f"Computer's final hand: {computer_hand}")
 
         playing = False  # For testing
 
