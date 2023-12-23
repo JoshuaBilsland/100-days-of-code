@@ -35,6 +35,10 @@ def main():
         print(f"Your cards: {user_hand}")
 
         user_hand = user_turn(user_hand)
+        if user_hand is None:
+            print("Computer wins!")
+        else:
+            computer_hand = computer_turn()
 
         playing = False  # For testing
 
@@ -67,6 +71,12 @@ def user_turn(user_hand):
             else:
                 playing_turn = False
     return user_hand
+
+
+def computer_turn(computer_hand):
+    while get_score(computer_hand) < 17:
+        computer_hand.append(draw_card())
+    return computer_hand
 
 
 if __name__ == "__main__":
