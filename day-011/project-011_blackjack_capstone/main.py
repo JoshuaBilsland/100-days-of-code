@@ -32,10 +32,9 @@ def main():
             user_hand.append(draw_card())
             computer_hand.append(draw_card())
 
-        user_score = get_score(user_hand)
-        computer_score = get_score(computer_hand)
-
         print(f"Your cards: {user_hand}")
+
+        user_hand = user_turn(user_hand)
 
         playing = False  # For testing
 
@@ -52,6 +51,22 @@ def get_score(hand):
             hand.append(1)
             score = sum(hand)
     return score
+
+
+def user_turn(user_hand):
+    playing_turn = True
+    while playing_turn:
+        if get_score(user_hand) > 21:
+            print("You have gone bust! You lose!")
+            return None
+        else:
+            draw_another = input("Do you want to draw another card? Y/N: ")
+            if draw_another.upper() == "Y":
+                user_hand.append(draw_card())
+                print(f"Your cards: {user_hand}")
+            else:
+                playing_turn = False
+    return user_hand
 
 
 if __name__ == "__main__":
