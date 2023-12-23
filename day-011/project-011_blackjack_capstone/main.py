@@ -32,6 +32,9 @@ def main():
             user_hand.append(draw_card())
             computer_hand.append(draw_card())
 
+        user_score = get_score(user_hand)
+        computer_score = get_score(computer_hand)
+
         print(f"Your cards: {user_hand}")
 
         playing = False  # For testing
@@ -39,6 +42,17 @@ def main():
 
 def draw_card():
     return random.choice(DECK)
+
+
+def get_score(hand):
+    score = sum(hand)
+    if score > 21:
+        if 11 in hand:
+            hand.pop(hand.index(11))
+            hand.append(1)
+            score = sum(hand)
+    return score
+
 
 if __name__ == "__main__":
     print(art.logo)
