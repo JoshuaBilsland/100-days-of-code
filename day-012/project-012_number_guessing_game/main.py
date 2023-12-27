@@ -10,8 +10,8 @@
 import art
 import random
 
-EASY_GUESSES_REMAINING = 5
-HARD_GUESSES_REMAINING = 10
+easy_guesses_remaining = 5
+hard_guesses_remaining = 10
 
 
 def main():
@@ -19,17 +19,30 @@ def main():
     print(f"You have {get_guesses_remaining(user_difficulty)} attempts "
           "remaining to guess the number.")
 
+    guessed_correctly = False
     random_number = get_random_number()
-    while get_guesses_remaining(user_difficulty) > 0:
+    while get_guesses_remaining(user_difficulty) > 0 and not guessed_correctly:
         user_guess = int(input("Make a guess: "))
-        if user_guess > random_number:
-            print("Too high.")
-            print("Guess again.")
-        elif user_guess < random_number:
-            print("Too low.")
-            print("Guess again.")
-        else:
+        if user_guess == random_number:
             print(f"You got it! The answer was {random_number}.")
+            guessed_correctly = True
+        else:
+            if user_guess > random_number:
+                print("Too high.")
+                print("Guess again.")
+            elif user_guess < random_number:
+                print("Too low.")
+                print("Guess again.")
+
+            if user_difficulty == "easy":
+                global easy_guesses_remaining
+                easy_guesses_remaining -= 1
+            elif user_difficulty == "hard":
+                global hard_guesses_remaining
+                hard_guesses_remaining -= 1
+
+    if get_guesses_remaining(user_difficulty) == 0:
+        print("You've run out of guesses, you lose.")
 
 
 def get_random_number():
@@ -38,9 +51,9 @@ def get_random_number():
 
 def get_guesses_remaining(difficulty):
     if difficulty == "easy":
-        return EASY_GUESSES_REMAINING
+        return easy_guesses_remaining
     elif difficulty == "hard":
-        return HARD_GUESSES_REMAINING
+        return hard_guesses_remaining
 
 
 if __name__ == "__main__":
