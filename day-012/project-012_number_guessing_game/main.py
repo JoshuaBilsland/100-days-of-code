@@ -15,13 +15,23 @@ HARD_GUESSES_REMAINING = 10
 
 
 def main():
-    print(get_random_number())
-
+    user_difficulty = input("Choose a difficulty. Type 'easy' or 'hard': ")
+    print(f"You have {get_guesses_remaining(user_difficulty)} attempts "
+          "remaining to guess the number.")
 
 def get_random_number():
     return random.randint(1, 100)
 
 
+def get_guesses_remaining(difficulty):
+    if difficulty == "easy":
+        return EASY_GUESSES_REMAINING
+    elif difficulty == "hard":
+        return HARD_GUESSES_REMAINING
+
+
 if __name__ == "__main__":
     print(art.logo)
+    print("Welcome to the Number Guessing Game!")
+    print("I'm thinking of a number between 1 and 100.")
     main()
