@@ -1,2 +1,3 @@
 # 100-days-of-code
-Projects and random files created while working through https://www.udemy.com/course/100-days-of-code/
+## Repo Purpose
+This repo will store the code and projects that I have made for each day of the [100 days of code course](https://www.udemy.com/course/100-days-of-code/). I bought this course in the 2023 Black Friday sales, and I am working through it to learn more advanced programming which will hopefully help my chances of getting a software development apprenticeship. Since I am working full-time, I am not always able to complete a day of the course each day; however, I always try to make some progress each day.
