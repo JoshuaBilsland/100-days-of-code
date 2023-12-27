@@ -19,6 +19,19 @@ def main():
     print(f"You have {get_guesses_remaining(user_difficulty)} attempts "
           "remaining to guess the number.")
 
+    random_number = get_random_number()
+    while get_guesses_remaining(user_difficulty) > 0:
+        user_guess = int(input("Make a guess: "))
+        if user_guess > random_number:
+            print("Too high.")
+            print("Guess again.")
+        elif user_guess < random_number:
+            print("Too low.")
+            print("Guess again.")
+        else:
+            print(f"You got it! The answer was {random_number}.")
+
+
 def get_random_number():
     return random.randint(1, 100)
 
