@@ -12,8 +12,17 @@ def main():
         next_account_to_compare = get_account()
         while next_account_to_compare == previous_account:
             next_account_to_compare = get_account()
-        print(previous_account)
-        print(next_account_to_compare)
+
+        print(f"Current score: {current_score}")
+        print(f"Compare A: {previous_account["name"]}, "
+              f"a {previous_account["description"]}, "
+              f"from {previous_account["country"]}")
+        print(art.vs)
+        print()
+        print(f"Compare B: {next_account_to_compare["name"]}, "
+              f"a {next_account_to_compare["description"]}, "
+              f"from {next_account_to_compare["country"]}")
+
         choice = get_choice()
 
 
