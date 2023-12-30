@@ -24,6 +24,19 @@ def main():
               f"from {next_account_to_compare["country"]}")
 
         choice = get_choice()
+        if (previous_account["follower_count"]
+            > next_account_to_compare["follower_count"]):
+            if choice == "A":
+                current_score += 1
+            else:
+                winning = False
+        else:
+            if choice == "B":
+                current_score += 1
+            else:
+                winning = False
+        previous_account = next_account_to_compare
+    print(f"Sorry, that's wrong. Final score: {current_score}")
 
 
 def get_choice():
