@@ -4,10 +4,10 @@ import menu
 def main():
     # 'a' stands for append the symbol, 'p' stands for prepend the symbol
     resources = {
-        "Water": [300, "ml", "a"],
-        "Milk": [200, "ml", "a"],
-        "Coffee": [100, "g", "a"],
-        "Money": [0, "$", "p"]
+        "water": [300, "ml", "a"],
+        "milk": [200, "ml", "a"],
+        "coffee": [100, "g", "a"],
+        "money": [0, "$", "p"]
     }
 
     on = True
@@ -15,6 +15,7 @@ def main():
         user_choice = input(
             "What would you like? (espresso/latte/cappuccino): ")
         if user_choice == "espresso":
+            print(check_resources(resources, user_choice))
             print()
         elif user_choice == "latte":
             print()
@@ -31,9 +32,19 @@ def main():
 def report(resources_dict):
     for key in resources_dict:
         if resources_dict[key][2] == "a":
-            print(f"{key}: {resources_dict[key][0]}{resources_dict[key][1]}")
+            print(f"{key.capitalize()}: "
+                  f"{resources_dict[key][0]}{resources_dict[key][1]}")
         elif resources_dict[key][2] == "p":
-            print(f"{key}: {resources_dict[key][1]}{resources_dict[key][0]}")
+            print(f"{key.capitalize()}: "
+                  f"{resources_dict[key][1]}{resources_dict[key][0]}")
+
+
+def check_resources(resources, coffee_wanted):
+    for ingredient in menu.MENU[coffee_wanted]["ingredients"]:
+        if (resources[ingredient][0]
+                < menu.MENU[coffee_wanted]["ingredients"][ingredient]):
+            return f"Sorry, there is not enough {ingredient}."
+    return None  # No lack of resources
 
 
 if __name__ == "__main__":
