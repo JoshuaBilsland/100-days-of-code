@@ -15,7 +15,7 @@ def main():
         elif user_choice == "report":
             print()
         elif user_choice == "off":
-            print()
+            on = False
         else:
             print("ERROR: Invalid choice")
 
