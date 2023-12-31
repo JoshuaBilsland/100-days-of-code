@@ -16,6 +16,7 @@ def main():
             "What would you like? (espresso/latte/cappuccino): ")
         if user_choice == "espresso":
             print(check_resources(resources, user_choice))
+            print(get_coin_total([1,2,1,2]))
             print()
         elif user_choice == "latte":
             print()
@@ -45,6 +46,21 @@ def check_resources(resources, coffee_wanted):
                 < menu.MENU[coffee_wanted]["ingredients"][ingredient]):
             return f"Sorry, there is not enough {ingredient}."
     return None  # No lack of resources
+
+
+def get_coin_total(coins_inserted):
+    coin_total = 0
+    for index, amount in enumerate(coins_inserted):
+        if index == 0:
+            amount *= 0.25
+        elif index == 1:
+            amount *= 0.10
+        elif index == 2:
+            amount *= 0.05
+        elif index == 3:
+            amount *= 0.01
+        coin_total += amount
+    return coin_total
 
 
 if __name__ == "__main__":
