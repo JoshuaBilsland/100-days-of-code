@@ -16,8 +16,10 @@ def main():
             "What would you like? (espresso/latte/cappuccino): ")
         if user_choice == "espresso":
             print(check_resources(resources, user_choice))
-            print(get_coin_total([1,2,1,2]))
-            print(check_amount(0.53, 0.52))
+            print(get_coin_total([1, 2, 1, 2]))
+            returned_values = check_amount(0.53, 0.52)
+            print(returned_values)
+            resources["money"][0] += returned_values[0]
         elif user_choice == "latte":
             print()
         elif user_choice == "cappuccino":
@@ -65,12 +67,15 @@ def get_coin_total(coins_inserted):
 
 def check_amount(desired_amount, coin_total):
     if coin_total > desired_amount:
-        string = f"Here is ${round(coin_total - desired_amount, 2)} in change."
+        change = round(coin_total - desired_amount, 2)
+        string = f"Here is ${change} in change."
+        return coin_total, string
     elif coin_total < desired_amount:
-        string = f"Sorry that's not enough money. Money refunded."
+        string = "Sorry that's not enough money. Money refunded."
+        return 0, string
     else:
-        string = f"That is enough money."
-    return string
+        string = "That is enough money."
+        return coin_total, string
 
 
 if __name__ == "__main__":
