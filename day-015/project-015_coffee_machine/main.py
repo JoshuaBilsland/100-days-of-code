@@ -15,15 +15,68 @@ def main():
         user_choice = input(
             "What would you like? (espresso/latte/cappuccino): ")
         if user_choice == "espresso":
-            print(check_resources(resources, user_choice))
-            print(get_coin_total([1, 2, 1, 2]))
-            returned_values = check_amount(0.53, 0.52)
-            print(returned_values)
-            resources["money"][0] += returned_values[0]
+            resource_check = check_resources(resources, "espresso")
+            if resource_check is None:
+                print("Please insert coins.")
+                quarters = float(input("How many quarters?: "))
+                dimes = float(input("How many dimes?: "))
+                nickles = float(input("How many nickles?: "))
+                pennies = float(input("How many pennies?: "))
+                coin_total = get_coin_total(
+                    [quarters, dimes, nickles, pennies])
+                coin_check = check_amount(menu.MENU["espresso"]["cost"],
+                                          coin_total)
+                resources["money"][0] += coin_check[0]
+                print(coin_check[1])
+                if coin_check[0] != 0:
+                    for ingredient in menu.MENU["espresso"]["ingredients"]:
+                        resources[ingredient][0] -= menu.MENU["espresso"][
+                            "ingredients"][ingredient]
+            else:
+                print(resource_check)
+
         elif user_choice == "latte":
-            print()
+            resource_check = check_resources(resources, "latte")
+            if resource_check is None:
+                print("Please insert coins.")
+                quarters = float(input("How many quarters?: "))
+                dimes = float(input("How many dimes?: "))
+                nickles = float(input("How many nickles?: "))
+                pennies = float(input("How many pennies?: "))
+                coin_total = get_coin_total(
+                    [quarters, dimes, nickles, pennies])
+                coin_check = check_amount(menu.MENU["latte"]["cost"],
+                                          coin_total)
+                resources["money"][0] += coin_check[0]
+                print(coin_check[1])
+                if coin_check[0] != 0:
+                    for ingredient in menu.MENU["latte"]["ingredients"]:
+                        resources[ingredient][0] -= menu.MENU["latte"][
+                            "ingredients"][ingredient]
+            else:
+                print(resource_check)
+
         elif user_choice == "cappuccino":
-            print()
+            resource_check = check_resources(resources, "cappuccino")
+            if resource_check is None:
+                print("Please insert coins.")
+                quarters = float(input("How many quarters?: "))
+                dimes = float(input("How many dimes?: "))
+                nickles = float(input("How many nickles?: "))
+                pennies = float(input("How many pennies?: "))
+                coin_total = get_coin_total(
+                    [quarters, dimes, nickles, pennies])
+                coin_check = check_amount(menu.MENU["cappuccino"]["cost"],
+                                          coin_total)
+                resources["money"][0] += coin_check[0]
+                print(coin_check[1])
+                if coin_check[0] != 0:
+                    for ingredient in menu.MENU["cappuccino"]["ingredients"]:
+                        resources[ingredient][0] -= menu.MENU["cappuccino"][
+                            "ingredients"][ingredient]
+            else:
+                print(resource_check)
+
         elif user_choice == "report":
             report(resources)
         elif user_choice == "off":
