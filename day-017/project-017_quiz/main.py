@@ -1,10 +1,11 @@
 from question_model import Question
 from data import question_data
+from quiz_brain import QuizBrain
 
 
 def main():
-    print()
-    get_question_bank()
+    question_bank = get_question_bank()
+    quiz = QuizBrain(question_bank)
 
 
 def get_question_bank():
