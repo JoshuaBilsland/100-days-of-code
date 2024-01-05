@@ -8,9 +8,14 @@ def main():
     quiz = QuizBrain(question_bank)
     still_has_questions = quiz.still_has_questions()
     while still_has_questions:
-        quiz.next_question()
-        quiz.handle_user_guess()
+        question = quiz.next_question()
+        guess = quiz.get_user_guess(question)
+        quiz.check_answer(guess)
+        quiz.increment_question_number()
+        still_has_questions = quiz.still_has_questions()
 
+    print("You've complete the quiz")
+    print(f"Your final score was: {quiz.get_score()}/{len(question_bank)}")
 
 def get_question_bank():
     question_bank = []
