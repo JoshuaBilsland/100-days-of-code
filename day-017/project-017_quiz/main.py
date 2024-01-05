@@ -17,6 +17,7 @@ def main():
     print("You've complete the quiz")
     print(f"Your final score was: {quiz.get_score()}/{len(question_bank)}")
 
+
 def get_question_bank():
     question_bank = []
     for data in question_data:
