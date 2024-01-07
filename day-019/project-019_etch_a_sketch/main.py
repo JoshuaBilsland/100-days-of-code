@@ -8,6 +8,12 @@ def move_forwards():
     tim.forward(10)
 
 
-screen.listen()
-screen.onkey(key="space", fun=move_forwards)
-screen.exitonclick()
+def main():
+    running = True
+    while running:
+        screen.listen()
+        screen.onkey(move_forwards, "w")
+
+
+if __name__ == "__main__":
+    main()
