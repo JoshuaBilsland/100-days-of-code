@@ -14,7 +14,6 @@ def main(colours, user_bet):
         turtle.goto(x=-230, y=y_positions[pos_index])
         pos_index += 1
 
-
     race_on = True
     while race_on:
         for turtle in turtles:
@@ -27,8 +26,6 @@ def main(colours, user_bet):
                     print(f"You've won! The {winning_colour} turtle is the winner!")
                 else:
                     print(f"You've lost! The {winning_colour} turtle is the winner!")
-
-
 
     screen.exitonclick()
 
