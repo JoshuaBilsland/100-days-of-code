@@ -12,10 +12,15 @@ def move_backwards():
     tim.backward(10)
 
 
+def counter_clockwise():
+    tim.setheading(tim.heading() + 5)
+
+
 def main():
     screen.listen()
-    screen.onkey(fun=move_forwards, key="w")
+    screen.onkey(move_forwards, "w")
     screen.onkey(move_backwards, "s")
+    screen.onkey(counter_clockwise, "a")
     screen.exitonclick()
 
 
