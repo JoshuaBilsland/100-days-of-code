@@ -18,11 +18,17 @@ class Snake:
 
     def create_snake(self):
         for pos in STARTING_POSITIONS:
-            snake_segment = Turtle("square")
-            snake_segment.color("white")
-            snake_segment.penup()
-            snake_segment.goto(pos)
-            self.__segments.append(snake_segment)
+            self.add_segment(pos)
+
+    def add_segment(self, position):
+        snake_segment = Turtle("square")
+        snake_segment.color("white")
+        snake_segment.penup()
+        snake_segment.goto(position)
+        self.__segments.append(snake_segment)
+
+    def extend(self):
+        self.add_segment(self.__segments[-1].position())
 
     def move(self):
         # range(start, stop, step)
