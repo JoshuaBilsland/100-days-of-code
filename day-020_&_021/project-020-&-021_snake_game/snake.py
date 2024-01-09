@@ -13,6 +13,9 @@ class Snake:
         self.create_snake()
         self.__head = self.__segments[0]
 
+    def get_head(self):
+        return self.__head
+
     def create_snake(self):
         for pos in STARTING_POSITIONS:
             snake_segment = Turtle("square")
