@@ -16,6 +16,9 @@ class Snake:
     def get_head(self):
         return self.__head
 
+    def get_segments(self):
+        return self.__segments
+
     def create_snake(self):
         for pos in STARTING_POSITIONS:
             self.add_segment(pos)

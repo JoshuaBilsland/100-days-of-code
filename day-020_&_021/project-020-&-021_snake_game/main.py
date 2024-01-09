@@ -39,6 +39,14 @@ def main():
             running = False
             scoreboard.game_over()
 
+        # Detect collision with tail
+        for segment in snake.get_segments():
+            if segment == snake.get_head():
+                pass
+            elif snake.get_head().distance(segment) < 10:
+                running = False
+                scoreboard.game_over()
+
     screen.exitonclick()
 
 
