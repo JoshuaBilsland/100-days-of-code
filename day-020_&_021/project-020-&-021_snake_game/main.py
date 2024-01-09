@@ -33,6 +33,11 @@ def main():
             food.refresh()
             scoreboard.increase_score()
 
+        # Detect collision with wall
+        if snake.get_head().xcor() > 280 or snake.get_head().xcor() < -280 or snake.get_head().ycor() > 280 or snake.get_head().ycor() < -280:
+            running = False
+            scoreboard.game_over()
+
     screen.exitonclick()
 
 
