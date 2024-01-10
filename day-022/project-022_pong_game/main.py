@@ -1,7 +1,8 @@
 from turtle import Screen, Turtle
 from functools import partial
 from paddle import Paddle
-
+from ball import Ball
+import time
 
 def main():
     screen = Screen()
@@ -13,6 +14,9 @@ def main():
     l_paddle = Paddle((-350, 0))
     r_paddle = Paddle((350, 0))
 
+
+    ball = Ball()
+
     screen.listen()
     screen.onkey(r_paddle.go_up, "Up")
     screen.onkey(r_paddle.go_down, "Down")
@@ -21,7 +25,9 @@ def main():
 
     running = True
     while running:
+        time.sleep(0.1)
         screen.update()
+        ball.move()
 
     screen.exitonclick()
 
