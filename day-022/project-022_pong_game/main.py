@@ -1,7 +1,7 @@
-from turtle import Screen, Turtle
-from functools import partial
+from turtle import Screen
 from paddle import Paddle
 from ball import Ball
+from scoreboard import Scoreboard
 import time
 
 
@@ -15,6 +15,7 @@ def main():
     l_paddle = Paddle((-350, 0))
     r_paddle = Paddle((350, 0))
     ball = Ball()
+    scoreboard = Scoreboard()
 
     screen.listen()
     screen.onkey(r_paddle.go_up, "Up")
@@ -40,10 +41,12 @@ def main():
         # Detect R paddle misses
         if ball.xcor() > 380:
             ball.reset_pos()
+            scoreboard.l_point()
 
         # Detect L paddle misses
         if ball.xcor() < -380:
             ball.reset_pos()
+            scoreboard.r_point()
 
     screen.exitonclick()
 
