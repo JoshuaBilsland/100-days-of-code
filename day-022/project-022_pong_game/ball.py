@@ -22,3 +22,7 @@ class Ball(Turtle):
     def bounce_x(self):
         # Reverse direction
         self.__x_move *= -1
+
+    def reset_pos(self):
+        self.goto(0, 0)
+        self.bounce_x()
