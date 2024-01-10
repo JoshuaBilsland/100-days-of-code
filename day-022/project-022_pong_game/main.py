@@ -4,6 +4,7 @@ from paddle import Paddle
 from ball import Ball
 import time
 
+
 def main():
     screen = Screen()
     screen.bgcolor("black")
@@ -13,8 +14,6 @@ def main():
 
     l_paddle = Paddle((-350, 0))
     r_paddle = Paddle((350, 0))
-
-
     ball = Ball()
 
     screen.listen()
@@ -28,6 +27,10 @@ def main():
         time.sleep(0.1)
         screen.update()
         ball.move()
+
+        # Detect collision with top/bottom wall
+        if ball.ycor() > 280 or ball.ycor() < -280:
+            ball.bounce()
 
     screen.exitonclick()
 
