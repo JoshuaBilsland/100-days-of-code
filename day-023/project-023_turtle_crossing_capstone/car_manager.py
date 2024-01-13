@@ -10,6 +10,9 @@ class CarManager(Turtle):
     def __init__(self):
         self.__cars = []
 
+    def get_cars(self):
+        return self.__cars
+
     def create_car(self):
         random_chance = random.randint(1, 6)
         if random_chance == 1:  # Reduce the frequency of cars being created
