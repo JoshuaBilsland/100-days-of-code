@@ -1,4 +1,5 @@
 from tkinter import *
+from tkinter import messagebox
 # ---------------------------- PASSWORD GENERATOR ------------------------------- #
 
 # ---------------------------- SAVE PASSWORD ------------------------------- #
@@ -7,9 +8,30 @@ def save_entry():
         website = website_entry.get()
         email = email_entry.get()
         password = password_entry.get()
-        file.write(f"{website} | {email} | {password}\n")
-    website_entry.delete(0, END)
-    password_entry.delete(0, END)
+
+        if len(website) == 0:
+            messagebox.showinfo(title="Info", message=(
+                "You have not entered a website"))
+
+        elif len(email) == 0:
+            messagebox.showinfo(title="Info", message=(
+                "You have not entered an Email"))
+
+        elif len(password) == 0:
+            messagebox.showinfo(title="Info", message=(
+                "You have not entered a password"))
+
+        else:
+            ok = messagebox.askokcancel(title=website, message=(
+                                                    f"Details entered: \n\n"
+                                                    f"Website: {website}"
+                                                    f"\nEmail: {email} "
+                                                    f"\nPassword: {password}\n\n"
+                                                    f"Is it ok to save?"))
+            if ok:
+                file.write(f"{website} | {email} | {password}\n")
+                website_entry.delete(0, END)
+                password_entry.delete(0, END)
 
 # ---------------------------- UI SETUP ------------------------------- #
 window = Tk()
