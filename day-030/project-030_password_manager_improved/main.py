@@ -32,15 +32,15 @@ def save_entry():
 
     if len(website) == 0:
         messagebox.showinfo(title="Info", message=(
-            "You have not entered a website"))
+            "You have not entered a website."))
 
     elif len(email) == 0:
         messagebox.showinfo(title="Info", message=(
-            "You have not entered an Email"))
+            "You have not entered an Email."))
 
     elif len(password) == 0:
         messagebox.showinfo(title="Info", message=(
-            "You have not entered a password"))
+            "You have not entered a password."))
 
     else:
         ok = messagebox.askokcancel(title=website, message=(
@@ -75,6 +75,22 @@ def save_entry():
                 website_entry.delete(0, END)
                 password_entry.delete(0, END)
 
+# ----------------------------  SEARCH FOR PASSWORD ------------------------------- #
+def search():
+    website = website_entry.get()
+    try:
+        with open("day-030/project-030_password_manager_improved/data.json", "r") as file:
+            data = json.load(file)
+    except FileNotFoundError:
+        messagebox.showerror(title="ERROR", message="You do not have any passwords saved.")
+    else:
+        if website in data:
+            email = data[website]["email"]
+            password = data[website]["password"]
+            messagebox.showinfo(title=f"{website}", message=f"Email: {email}\nPassword: {password}")
+        else:
+            messagebox.showinfo(title="ERROR", message=f"You have not saved any details for '{website}'")
+        
 # ---------------------------- UI SETUP ------------------------------- #
 window = Tk()
 window.title("Password Manager")
@@ -87,8 +103,8 @@ canvas.grid(row=0, column=1)
 
 website_label = Label(text="Website:")
 website_label.grid(row=1, column=0)
-website_entry = Entry(width=55)
-website_entry.grid(row=1, column=1, columnspan=2, sticky="w")
+website_entry = Entry(width=36)
+website_entry.grid(row=1, column=1, sticky="w")
 website_entry.focus()
 
 email_label = Label(text="Email/Username:")
@@ -106,4 +122,6 @@ generate_password_button = Button(text="Generate Password", command=generate_pas
 generate_password_button.grid(row=3, column=2)
 add_button = Button(text="Add", width=46, command=save_entry)
 add_button.grid(row=4, column=1, columnspan=2, sticky="w")
+search_button = Button(text="Search", width=15, command=search)
+search_button.grid(row=1, column=2)
 window.mainloop()
