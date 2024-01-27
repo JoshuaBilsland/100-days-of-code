@@ -1,6 +1,7 @@
 from tkinter import *
 from tkinter import messagebox
 import random
+import json
 # ---------------------------- PASSWORD GENERATOR ------------------------------- #
 #Password Generator Project
 def generate_password():
@@ -25,7 +26,7 @@ def generate_password():
 
 # ---------------------------- SAVE PASSWORD ------------------------------- #
 def save_entry():
-    with open("data.txt", "a") as file:
+    with open("day-030/project-030_password_manager_improved/data.json", "w") as file:
         website = website_entry.get()
         email = email_entry.get()
         password = password_entry.get()
@@ -50,7 +51,13 @@ def save_entry():
                                                     f"\nPassword: {password}\n\n"
                                                     f"Is it ok to save?"))
             if ok:
-                file.write(f"{website} | {email} | {password}\n")
+                new_data = {
+                    website: {
+                        "email": email,
+                        "password": password
+                    }
+                }
+                json.dump(new_data, file)
                 website_entry.delete(0, END)
                 password_entry.delete(0, END)
 
