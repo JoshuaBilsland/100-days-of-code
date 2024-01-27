@@ -26,38 +26,52 @@ def generate_password():
 
 # ---------------------------- SAVE PASSWORD ------------------------------- #
 def save_entry():
-    with open("day-030/project-030_password_manager_improved/data.json", "w") as file:
-        website = website_entry.get()
-        email = email_entry.get()
-        password = password_entry.get()
+    website = website_entry.get()
+    email = email_entry.get()
+    password = password_entry.get()
 
-        if len(website) == 0:
-            messagebox.showinfo(title="Info", message=(
-                "You have not entered a website"))
+    if len(website) == 0:
+        messagebox.showinfo(title="Info", message=(
+            "You have not entered a website"))
 
-        elif len(email) == 0:
-            messagebox.showinfo(title="Info", message=(
-                "You have not entered an Email"))
+    elif len(email) == 0:
+        messagebox.showinfo(title="Info", message=(
+            "You have not entered an Email"))
 
-        elif len(password) == 0:
-            messagebox.showinfo(title="Info", message=(
-                "You have not entered a password"))
+    elif len(password) == 0:
+        messagebox.showinfo(title="Info", message=(
+            "You have not entered a password"))
 
-        else:
-            ok = messagebox.askokcancel(title=website, message=(
-                                                    f"Details entered: \n\n"
-                                                    f"Website: {website}"
-                                                    f"\nEmail: {email} "
-                                                    f"\nPassword: {password}\n\n"
-                                                    f"Is it ok to save?"))
-            if ok:
-                new_data = {
-                    website: {
-                        "email": email,
-                        "password": password
-                    }
+    else:
+        ok = messagebox.askokcancel(title=website, message=(
+                                                f"Details entered: \n\n"
+                                                f"Website: {website}"
+                                                f"\nEmail: {email} "
+                                                f"\nPassword: {password}\n\n"
+                                                f"Is it ok to save?"))
+        if ok:
+            new_data = {
+                website: {
+                    "email": email,
+                    "password": password
                 }
-                json.dump(new_data, file)
+            }
+
+            try:
+                with open("day-030/project-030_password_manager_improved/data.json", "r") as file:
+                    # Reading old data
+                    data = json.load(file)
+            except FileNotFoundError:
+                with open("day-030/project-030_password_manager_improved/data.json", "w") as file:
+                    json.dump(new_data, file, indent=4)
+            else:
+                # Updating old data with new data
+                data.update(new_data)
+
+                with open("day-030/project-030_password_manager_improved/data.json", "w") as file:
+                    # Saving updated data
+                    json.dump(data, file, indent=4)
+            finally:
                 website_entry.delete(0, END)
                 password_entry.delete(0, END)
 
