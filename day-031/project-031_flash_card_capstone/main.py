@@ -19,9 +19,9 @@ def new_card():
     global current_card, flip_timer
     window.after_cancel(flip_timer)
     current_card = random.choice(words)
-    canvas.itemconfig(card_title, text="French")
+    canvas.itemconfig(card_title, text="French", fill="black")
     canvas.itemconfig(card_word, text=current_card["French"], fill="black")
-    canvas.itemconfig(card_back, image=card_front)
+    canvas.itemconfig(card_bg, image=card_front)
     flip_timer = window.after(3000, func=flip_card)
 
 
