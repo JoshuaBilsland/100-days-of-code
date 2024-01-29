@@ -3,8 +3,13 @@ import pandas
 import random
 
 BACKGROUND_COLOR = "#B1DDC6"
-data = pandas.read_csv(
-    "day-031/project-031_flash_card_capstone/data/french_words.csv")
+
+try:
+    data = pandas.read_csv(
+        "day-031/project-031_flash_card_capstone/data/words_to_learn.csv")
+except FileNotFoundError:
+    data = pandas.read_csv(
+        "day-031/project-031_flash_card_capstone/data/french_words.csv")
 words = data.to_dict(orient="records")
 current_card = {}
 
@@ -24,6 +29,15 @@ def flip_card():
     canvas.itemconfig(card_title, text="English", fill="white")
     canvas.itemconfig(card_word, text=current_card["English"], fill="white")
     canvas.itemconfig(card_bg, image=card_back)
+
+
+def remove_card():
+    words.remove(current_card)
+    data = pandas.DataFrame(words)
+    data.to_csv(
+        "day-031/project-031_flash_card_capstone/data/words_to_learn.csv",
+        index=False)
+    new_card()
 
 
 # GUI
@@ -53,14 +67,14 @@ canvas.grid(row=0, column=0, columnspan=2)
 # Buttons
 wrong_button_img = PhotoImage(file=(
     "day-031/project-031_flash_card_capstone/images/wrong.png"))
-wrong_button = Button(image=wrong_button_img, 
+wrong_button = Button(image=wrong_button_img,
                       highlightthickness=0, command=new_card)
 wrong_button.grid(row=1, column=0)
 
 right_button_img = PhotoImage(file=(
     "day-031/project-031_flash_card_capstone/images/right.png"))
-right_button = Button(image=right_button_img, 
-                      highlightthickness=0, command=new_card)
+right_button = Button(image=right_button_img,
+                      highlightthickness=0, command=remove_card)
 right_button.grid(row=1, column=1)
 
 new_card()
