@@ -38,9 +38,16 @@ class AppGUI:
 
     def get_next_question(self):
         self.__canvas.config(bg="white")
-        self.__score_label.config(text=f"Score: {self.__quiz.score}")
-        q_text = self.__quiz.next_question()
-        self.__canvas.itemconfig(self.__question_text, text=q_text)
+        if self.__quiz.still_has_questions():
+            self.__score_label.config(text=f"Score: {self.__quiz.score}")
+            q_text = self.__quiz.next_question()
+            self.__canvas.itemconfig(self.__question_text, text=q_text)
+        else:
+            self.__canvas.itemconfig(
+                self.__question_text, text="You've reached the end of the quiz."
+            )
+            self.__true_button.config(state="disabled")
+            self.__false_button.config(state="disabled")
 
     def true_pressed(self):
         is_right = self.__quiz.check_answer("True")
@@ -52,7 +59,7 @@ class AppGUI:
 
     def give_feedback(self, is_right):
         if is_right:
-            self.canvas.config(bg="green")
+            self.__canvas.config(bg="green")
         else:
-            self.canvas.config(bg="red")
+            self.__canvas.config(bg="red")
         self.__window.after(1000, self.get_next_question)
