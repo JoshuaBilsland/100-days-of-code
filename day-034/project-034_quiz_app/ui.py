@@ -1,10 +1,12 @@
 from tkinter import *
+from quiz_brain import QuizBrain
 
 THEME_COLOR = "#375362"
 
 
 class AppGUI:
-    def __init__(self):
+    def __init__(self, quiz_brain: QuizBrain):
+        self.__quiz = quiz_brain
         self.__window = Tk()
         self.__window.title("Quiz App")
         self.__window.config(padx=20, pady=20, bg=THEME_COLOR)
@@ -16,6 +18,7 @@ class AppGUI:
         self.__question_text = self.__canvas.create_text(
             150,
             125,
+            width=280,
             text="temp",
             fill=THEME_COLOR,
             font=("Arial", 15, "italic")
@@ -29,4 +32,10 @@ class AppGUI:
         self.__true_button.grid(row=2, column=0)
         self.__false_button.grid(row=2, column=1)
 
+        self.get_next_question()
+
         self.__window.mainloop()
+
+    def get_next_question(self):
+        q_text = self.__quiz.next_question()
+        self.__canvas.itemconfig(self.__question_text, text=q_text)

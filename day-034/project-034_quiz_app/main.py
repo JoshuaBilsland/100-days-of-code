@@ -12,7 +12,7 @@ for question in question_data:
 
 
 quiz = QuizBrain(question_bank)
-app_gui = AppGUI()
+app_gui = AppGUI(quiz)
 
 # while quiz.still_has_questions():
 #     quiz.next_question()
