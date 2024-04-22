@@ -27,8 +27,8 @@ class AppGUI:
 
         true_img = PhotoImage(file="day-034/project-034_quiz_app/images/true.png")
         false_img = PhotoImage(file="day-034/project-034_quiz_app/images/false.png")
-        self.__true_button = Button(image=true_img, highlightthickness=0)
-        self.__false_button = Button(image=false_img, highlightthickness=0)
+        self.__true_button = Button(image=true_img, highlightthickness=0, command=self.true_pressed)
+        self.__false_button = Button(image=false_img, highlightthickness=0, command=self.false_pressed)
         self.__true_button.grid(row=2, column=0)
         self.__false_button.grid(row=2, column=1)
 
@@ -37,5 +37,22 @@ class AppGUI:
         self.__window.mainloop()
 
     def get_next_question(self):
+        self.__canvas.config(bg="white")
+        self.__score_label.config(text=f"Score: {self.__quiz.score}")
         q_text = self.__quiz.next_question()
         self.__canvas.itemconfig(self.__question_text, text=q_text)
+
+    def true_pressed(self):
+        is_right = self.__quiz.check_answer("True")
+        self.give_feedback(is_right)
+
+    def false_pressed(self):
+        is_right = self.__quiz.check_answer("False")
+        self.give_feedback(is_right)
+
+    def give_feedback(self, is_right):
+        if is_right:
+            self.canvas.config(bg="green")
+        else:
+            self.canvas.config(bg="red")
+        self.__window.after(1000, self.get_next_question)
