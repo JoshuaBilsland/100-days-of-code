@@ -1,5 +1,6 @@
 import requests
 import os
+from twilio.rest import Client
 
 
 def get_api_key():
@@ -18,10 +19,18 @@ def check_for_rain(json_data):
         if int(condition_code) < 700:
             will_rain = True
     if will_rain:
-        print("Bring an umbrella")
+        client = Client(account_sid, auth_token)
+        message = client.messages.create(
+            body="It's going to rain today. Bring an umbrella.",
+            from_="phone_number_temp",
+            to="phone_number_temp"
+        )
+        print(message.status)
 
 
 if __name__ == "__main__":
+    account_sid = "account_sid_temp"
+    auth_token = "auth_token_temp"
     os.environ["API_KEY"] = get_api_key()
     OWM_ENDPOINT = "https://api.openweathermap.org/data/2.5/forecast"
     api_parameters = {
