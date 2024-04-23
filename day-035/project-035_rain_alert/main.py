@@ -10,7 +10,14 @@ def get_api_key():
         print("ERROR: .config file does not exist.")
         exit()
 
-
 if __name__ == "__main__":
     os.environ["API_KEY"] = get_api_key()
-    print(os.environ["API_KEY"])
+    OWM_ENDPOINT = "https://api.openweathermap.org/data/2.5/forecast"
+    api_parameters = {
+        "lon": 51.507351,
+        "lat": -0.127758,
+        "appid": os.environ["API_KEY"]
+    }
+
+    response = requests.get(OWM_ENDPOINT, params=api_parameters)
+    print(response)
