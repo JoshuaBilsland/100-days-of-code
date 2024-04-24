@@ -1,8 +1,22 @@
+import requests
+
 STOCK_NAME = "TSLA"
 COMPANY_NAME = "Tesla Inc"
 
 STOCK_ENDPOINT = "https://www.alphavantage.co/query"
 NEWS_ENDPOINT = "https://newsapi.org/v2/everything"
+
+
+def get_api_key():
+    try:
+        with open('day-035/project-035_rain_alert/.config', 'r') as configFile:
+            return configFile.readline()
+    except FileNotFoundError:
+        print("ERROR: .config file does not exist.")
+        exit()
+
+
+API_KEY = get_api_key()
 
     ## STEP 1: Use https://www.alphavantage.co/documentation/#daily
 # When stock price increase/decreases by 5% between yesterday and the day before yesterday then print("Get News").
