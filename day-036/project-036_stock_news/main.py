@@ -63,10 +63,9 @@ if percentage_difference > 5:
     news_response = requests.get(NEWS_ENDPOINT, params=news_params)
     news_response.raise_for_status()
     news_json = news_response.json()
-    print(news_json)
 
 # TODO 6. - Instead of printing ("Get News"), use the News API to get articles related to the COMPANY_NAME.
-
+    print(news_json["articles"])
 
 # TODO 7. - Use Python slice operator to create a list that contains the first 3 articles. Hint: https://stackoverflow.com/questions/509211/understanding-slice-notation
 
