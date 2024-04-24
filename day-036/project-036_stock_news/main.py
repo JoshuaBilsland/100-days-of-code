@@ -1,4 +1,5 @@
 import requests
+from twilio.rest import Client
 
 STOCK_NAME = "TSLA"
 COMPANY_NAME = "Tesla Inc"
@@ -11,7 +12,7 @@ def get_api_key(line_num):
     try:
         with open('day-036/project-036_stock_news/.config', 'r') as configFile:
             lines = configFile.readlines()
-            return lines[line_num]
+            return lines[line_num].strip()
     except FileNotFoundError:
         print("ERROR: .config file does not exist.")
         exit()
@@ -19,6 +20,8 @@ def get_api_key(line_num):
 
 STOCK_API_KEY = get_api_key(0)
 NEWS_API_KEY = get_api_key(1)
+TWILIO_SID = get_api_key(2)
+TWILIO_AUTH = get_api_key(3)
 
     ## STEP 1: Use https://www.alphavantage.co/documentation/#daily
 # When stock price increase/decreases by 5% between yesterday and the day before yesterday then print("Get News").
@@ -51,7 +54,7 @@ percentage_difference = (positive_difference / float(yesterday_closing_price)) *
 
 
 # TODO 5. - If TODO4 percentage is greater than 5 then print("Get News").
-if percentage_difference > 5:
+if percentage_difference > 1:
     # print("Get news")
 
     ## STEP 2: https://newsapi.org/
@@ -68,7 +71,7 @@ if percentage_difference > 5:
     print(news_json["articles"])
 
 # TODO 7. - Use Python slice operator to create a list that contains the first 3 articles. Hint: https://stackoverflow.com/questions/509211/understanding-slice-notation
-    first_three_articles = news_json[:3]
+    first_three_articles = news_json["articles"][:3]
 
     ## STEP 3: Use twilio.com/docs/sms/quickstart/python
     #to send a separate message with each article's title and description to your phone number.
@@ -76,8 +79,15 @@ if percentage_difference > 5:
 # TODO 8. - Create a new list of the first 3 article's headline and description using list comprehension.
     formatted_articles_list = [f"Headline: {article['title']}. \nBrief: {article['description']}" for article in first_three_articles]
 
-# TODO 9. - Send each article as a separate message via Twilio.
 
+# TODO 9. - Send each article as a separate message via Twilio.
+    client = Client(TWILIO_SID, TWILIO_AUTH)
+    for article in formatted_articles_list:
+        message = Client.messages.create(
+            body=article,
+            from_="phone_number_temp",
+            to="phone_number_temp"
+        )
 
 
 #Optional TODO: Format the message like this:
