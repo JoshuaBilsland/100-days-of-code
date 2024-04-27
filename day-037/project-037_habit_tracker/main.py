@@ -1,6 +1,7 @@
 import requests
 from datetime import datetime
 
+
 def get_api_key(line_num):
     try:
         with open('day-037/project-037_habit_tracker/.config', 'r') as configFile:
@@ -67,6 +68,11 @@ def main():
         "quantity": "1"
     }
     response = requests.put(url=PUT_PIXEL_ENDPOINT, json=new_pixel_data, headers=pixela_headers)
+    print(response.text)
+
+    # DELETE A PIXEL
+    DELETE_PIXEL_ENDPOINT = f"{PIXELA_ENDPOINT}/{PIXELA_USERNAME}/graphs/{PIXELA_GRAPH_ID}/{today.strftime('%Y%m%d')}"
+    response = requests.delete(url=DELETE_PIXEL_ENDPOINT, headers=pixela_headers)
     print(response.text)
 
 
