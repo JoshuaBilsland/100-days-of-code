@@ -61,5 +61,14 @@ def main():
     response = requests.post(url=POST_PIXEL_ENDPOINT, json=pixel_params, headers=pixela_headers)
     print(response.text)
 
+    # PUT (UPDATE) A PIXEL
+    PUT_PIXEL_ENDPOINT = f"{PIXELA_ENDPOINT}/{PIXELA_USERNAME}/graphs/{PIXELA_GRAPH_ID}/{today.strftime('%Y%m%d')}"
+    new_pixel_data = {
+        "quantity": "1"
+    }
+    response = requests.put(url=PUT_PIXEL_ENDPOINT, json=new_pixel_data, headers=pixela_headers)
+    print(response.text)
+
+
 if __name__ == "__main__":
     main()
