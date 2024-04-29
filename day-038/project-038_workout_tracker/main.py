@@ -19,9 +19,10 @@ def main():
 
     APP_ID = get_api_key(0)
     API_KEY = get_api_key(1)
+    BEARER_TOKEN = get_api_key(2)
 
     EXERCISE_ENDPOINT = "https://trackapi.nutritionix.com/v2/natural/exercise"
-    SHEET_ENDPOINT = get_api_key(2)
+    SHEET_ENDPOINT = get_api_key(3)
 
     user_exercise_input = input("Tell me which exercises you did: ")
 
@@ -62,8 +63,11 @@ def main():
                 "calories": nf_calories
             }
         }
+        bearer_headers = {
+            "Authorization": f"Bearer {BEARER_TOKEN}"
+        }
         sheet_response = requests.post(url=SHEET_ENDPOINT,
-                                       headers=request_headers,
+                                       headers=bearer_headers,
                                        json=sheet_params)
         sheet_response.raise_for_status()
 
