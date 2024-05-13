@@ -5,4 +5,14 @@ URL = "https://web.archive.org/web/20200518073855/https://www.empireonline.com/m
 
 # Write your code below this line 👇
 
+response = requests.get(URL)
 
+website_html = response.text
+soup = BeautifulSoup(website_html, "html.parser")
+all_movies = soup.find_all(name="h3", class_="title")
+movie_titles = [movie.getText() for movie in all_movies]
+reversed_order = movie_titles[::-1]
+
+with open("day-045/project-045_movies_to_watch/movies.txt", mode="w", encoding="utf8") as file:
+    for movie in reversed_order:
+        file.write(f"{movie}\n")
