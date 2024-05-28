@@ -15,10 +15,10 @@ def get_api_key(line_num):
 
 
 def main():
-    user_year = input(
+    user_date = input(
         "Which year do you want to travel to? "
         "Type the data in this format YYYY-MM-DD:")
-    response = requests.get(f"https://www.billboard.com/charts/hot-100/{user_year}/")
+    response = requests.get(f"https://www.billboard.com/charts/hot-100/{user_date}/")
 
     soup = BeautifulSoup(response.text, 'html.parser')
     song_name_lines = soup.select("li ul li h3")
@@ -35,8 +35,21 @@ def main():
         username=get_api_key(2), 
     )
 )
+
     user_id = sp.current_user()["id"]
 
+    song_uris = []
+    year = user_date.split("-")[0]
+    for song in song_names:
+        result = sp.search(q=f"track:{song} year:{year}", type="track")
+        print(result)
+        try:
+            uri = result["tracks"]["items"][0]["uri"]
+            song_uris.append(uri)
+        except IndexError:
+            print(f"{song} doesn't exist in Spotify. Skipped.")
+
+    
 
 if __name__ == "__main__":
     main()
