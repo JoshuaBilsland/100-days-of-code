@@ -1,4 +1,6 @@
 import requests
+import lxml
+from bs4 import BeautifulSoup
 
 
 def main():
@@ -7,9 +9,12 @@ def main():
         "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36",
         "Accept_Language": "en-GB,en-US;q=0.9,en;q=0.8"
     }
-    amazon_product = requests.get(amazon_product_url, headers=request_headers)
-    
-    print(amazon_product)
+    response = requests.get(amazon_product_url, headers=request_headers)
+
+    soup = BeautifulSoup(response.content, "lxml")
+    price = soup.find(class_="a-offscreen").get_text()
+    price_without_currency = price.split("£")[1]
+    price_as_float = float(price_without_currency)
 
 
 if __name__ == "__main__":
