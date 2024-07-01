@@ -1,6 +1,17 @@
 import requests
 import lxml
+import smtplib
 from bs4 import BeautifulSoup
+
+
+def get_config_line(line_num):
+    try:
+        with open('day-047/project-047_price_tracker/.config', 'r') as configFile:
+            lines = configFile.readlines()
+            return lines[line_num].strip()
+    except FileNotFoundError:
+        print("ERROR: .config file does not exist.")
+        exit()
 
 
 def main():
@@ -15,6 +26,23 @@ def main():
     price = soup.find(class_="a-offscreen").get_text()
     price_without_currency = price.split("£")[1]
     price_as_float = float(price_without_currency)
+
+    title = soup.find(id="productTitle").get_text().strip()
+    email = get_config_line(0)
+    print(email)
+    print(type(email))
+    app_pw = get_config_line(1)
+    BUY_PRICE = 500
+    if price_as_float < BUY_PRICE:
+        message = f"{title} is now {price}"
+        with smtplib.SMTP("smtp.gmail.com", port=587) as connection:
+            connection.starttls()
+            result = connection.login(email, app_pw)
+            connection.sendmail(
+                from_addr=email,
+                to_addrs=email,
+                msg=f"Subject:Amazon Price Alert!\n\n{message}\n{amazon_product_url}".encode("utf-8")
+            )
 
 
 if __name__ == "__main__":
