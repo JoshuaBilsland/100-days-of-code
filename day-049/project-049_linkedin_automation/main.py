@@ -1,6 +1,7 @@
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.common.keys import Keys
+import time
 
 
 def get_config_key(line_num):
@@ -30,7 +31,13 @@ def main():
     password = get_config_key(1)
     email_entry.send_keys(email)
     password_entry.send_keys(password, Keys.ENTER)
-
+    time.sleep(5)
+    jobs_list = driver.find_elements(By.CSS_SELECTOR, value=".jobs-search-results__list-item")
+    for job in jobs_list:
+        job.click()
+        time.sleep(2)
+        save = driver.find_element(By.CSS_SELECTOR, value=".jobs-save-button")
+        save.click()
     input()
 
 
