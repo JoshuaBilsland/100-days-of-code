@@ -1,4 +1,6 @@
 from selenium import webdriver
+from selenium.webdriver.common.by import By
+import time
 
 
 def get_config_key(line_num):
@@ -21,7 +23,18 @@ class InternetSpeedTwitterBot:
         self.__up = 0
 
     def get_internet_speed(self):
-        pass
+        self.__driver.get("https://www.speedtest.net/")
+
+        time.sleep(5)
+        accept_button = self.__driver.find_element(By.XPATH, value="/html/body/div[5]/div[2]/div/div/div[2]/div/div/button[2]")
+        accept_button.click()
+
+        go_button = self.__driver.find_element(By.CSS_SELECTOR, value=".start-button a")
+        go_button.click()
+
+        time.sleep(60)
+        self.up = self.__driver.find_element(By.XPATH, value='//*[@id="container"]/div/div[3]/div/div/div/div[2]/div[3]/div[3]/div/div[3]/div/div/div[2]/div[1]/div[2]/div/div[2]/span').text
+        self.down = self.__driver.find_element(By.XPATH, value='/html/body/div[3]/div/div[3]/div/div/div/div[2]/div[3]/div[3]/div/div[3]/div/div/div[2]/div[1]/div[1]/div/div[2]/span').text
 
     def tweet_at_provider(self):
         pass
