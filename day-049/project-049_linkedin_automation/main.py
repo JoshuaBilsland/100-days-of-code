@@ -31,7 +31,7 @@ def main():
     password = get_config_key(1)
     email_entry.send_keys(email)
     password_entry.send_keys(password, Keys.ENTER)
-    time.sleep(5)
+    time.sleep(10)
     jobs_list = driver.find_elements(By.CSS_SELECTOR, value=".jobs-search-results__list-item")
     for job in jobs_list:
         job.click()
